@@ -1,0 +1,13 @@
+{
+  "name": "MagWeb",
+  "version": "1.0.0",
+  "description": "magweb-app",
+  "main": "app.js",
+  "bin": "bin/app",
+  "dependencies": {
+    "stylus": "^0.54.5"
+  },
+  "devDependencies": {},
+  "author": "Kalina, TiTr",
+  "license": "ISC"
+}
