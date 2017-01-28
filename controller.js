@@ -22,3 +22,15 @@ module.exports = {
 function indexAction (req, res) {
   res.render('index');
 }
+
+function articleAction (req, res) {
+  res.render('article');
+}
+
+function categoryAction (req, res) {
+  res.render('category');
+}
+
+function authorAction (req, res) {
+  res.render('index');
+}
