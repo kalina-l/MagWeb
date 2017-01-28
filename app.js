@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var express = require('express');
 var bodyParser = require('body-parser');
 var stylus = require('stylus');
+var nib = require('nib');
 
 var app = express();
 
