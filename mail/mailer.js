@@ -25,7 +25,7 @@ function getData () {
       console.log('no data - buuuhhh');
     }
     newsEntries.forEach(function(newsEntry) {
-      if (newsEntry.position != 404) {
+      if (newsEntry._id != 'firstNews') {
         var tempNewsEntry = newsEntry
         var pathToImage = '../public/img/news/' + newsEntry.image + '-medium.jpg'
 
@@ -98,7 +98,9 @@ function sendMail (type, bccCount) {
 }
 
 getData()
-sendMail('test', 999)
+setTimeout(function () {
+  sendMail('test', 999)
+}, 3000);
 
 //var i = schedule.scheduleJob('*/1 * * * *', function(){
 /*
