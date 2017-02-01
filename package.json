@@ -5,6 +5,7 @@
   "main": "app.js",
   "bin": "bin/app",
   "dependencies": {
+    "basic-auth": "^1.1.0",
     "body-parser": "^1.15.2",
     "easyimage": "^2.1.0",
     "express": "^4.14.0",
