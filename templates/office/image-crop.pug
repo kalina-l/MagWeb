@@ -1,0 +1,62 @@
+extend ../base
+
+block title
+    title Office - ImageUpload – Uta Hansen Management
+
+    link(rel="stylesheet", href="/styles/jquery.guillotine.css")
+    script(src="/js/jquery.guillotine.js")
+    script.
+        $(window).bind("load", function() {
+            var picture = $('#thepicture');  // Must be already loaded or cached!
+            picture.guillotine({width: #{dimensionsWidth} , height: #{dimensionsHeight} });
+
+            function setDataForCropping () {
+                var data = picture.guillotine('getData');
+                $('#imageScaleData').val(data.scale);
+                $('#imageXData').val(data.x);
+                $('#imageYData').val(data.y);
+            }
+
+            setDataForCropping();
+
+            $( "#thepicture" ).mouseleave(function() {
+                setDataForCropping();
+                var data = picture.guillotine('getData');
+                console.log(data);
+            });
+
+            $('#zoom-in-button').click(function(){
+                picture.guillotine('zoomIn');
+                setDataForCropping();
+            });
+            $('#zoom-out-button').click(function(){
+                picture.guillotine('zoomOut');
+                setDataForCropping();
+            });
+        });
+
+block content
+    div.col-lg-12.col-head-space
+        div.row
+            div.col-lg-5
+                div#theparent
+                    img#thepicture(src= "" +imageUrl+'.jpg')
+
+                div#controls
+                    button#zoom-in-button(type='button' title='Zoom in') +
+                    button#zoom-out-button(type='button' title='Zoom out') -
+
+        div.col-lg-11
+            form(action="/office/cropImage" method="post")
+                input(type="hidden" name="imageType" value="" +imageType)
+                input(type="hidden" name="refForRedirect" value="" +refForRedirect)
+                input#cropWidth(type="hidden" name="cropWidth" value="" +dimensionsWidth)
+                input#cropHeight(type="hidden" name="cropHeight" value="" +dimensionsHeight)
+                input#imageUrlData(type="hidden" name="imageUrlData" value="" +imageUrl)
+
+                input#imageScaleData(type="hidden" step="0.000000000000000001" name="imageScaleData")
+                input#imageXData(type="hidden" step="0.000000000000000001" name="imageXData")
+                input#imageYData(type="hidden" step="0.000000000000000001" name="imageYData")
+                button(type="submit") Speichern
+
+            div
