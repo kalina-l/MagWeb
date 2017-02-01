@@ -1,0 +1,83 @@
+doctype html
+
+html
+    head
+        meta(charset="utf-8")
+        meta(name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;")
+        link(href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet")
+        title newsletter
+
+        style(type="text/css").
+            @media (min-width:20px)
+            {
+            table[class="container"] {width: 100%;}
+            table[class="table-left"] {width: 100%;}
+            table[class="table-right"] {width: 100%;}
+            table[class="table-left-small"] {width: 100%;}
+            table[class="table-right-small"] {width: 100%;}
+            .big-text {padding: 15px 15px 0 15px}
+            .small-text {padding: 15px 15px 0 15px}
+            #second-entry {margin-left: 0;}
+            .name-small {font-size: 1.12rem;}
+            }
+
+            @media (min-width:600px)
+            {
+            table[class="table-left"] {width: 285px;}
+            table[class="table-right"] {width: 285px;}
+            table[class="table-left-small"] {width: 180px;}
+            table[class="table-right-small"] {width: 180px;}
+            table[class="container"] {width: 600px;}
+            .big-text {padding: 15px 25% 0 25%;}
+            .small-text {padding: 15px 10px 0 5px}
+            #second-entry {margin-left: 30px;}
+            .name-small {font-size: 0.9rem;}
+            }
+
+            /* Some resets and issue fixes */
+            #outlook a { padding:0; }
+            body{ width:100% !important; -webkit-text; size-adjust:100%; -ms-text-size-adjust:100%; margin:0; padding:0; }
+            .ReadMsgBody { width: 100%; }
+            .ExternalClass {width:100%;}
+            .backgroundTable {margin:0 auto; padding:0; width:100%;!important;}
+            table td {border-collapse: collapse;}
+            .ExternalClass * {line-height: 115%;}
+            /* End reset */
+
+    body(yahoo bgcolor="#ffffff")
+        table#bgtable(align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%")
+            tr
+                td(align="center" valign="top")
+                    table.container(border="0" cellpadding="0" cellspacing="0" width="600")
+                        tr
+                            td
+                                table.header-table(align="left" border="0" cellpadding="0" cellspacing="0" width="180")
+                                    tr
+                                        td
+                                            h2.logo Magazine
+                                table.header-table(align="left" border="0" cellpadding="0" cellspacing="0" width="180" style="border-left: 1px solid black; padding-left: 15px; margin-left: 15px;")
+                                    tr
+                                        td.main-headline-1 Monthly
+                                    tr
+                                        td.main-headline-2 Newsletter
+                        tr
+                            td
+                                p.welcome-text Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+                        - var gripCount = 0
+                        each news in allNews
+                            - var names = news.category
+
+                            - var imageMedium = news.image
+
+                            - if (gripCount > 8)
+                                - gripCount = 0
+                            - if (gripCount == 0)
+                                | <tr><td>
+                            include ./news-types
+                            - if (gripCount == 0)
+                                | </td></tr>
+
+                        tr
+                            td
+                                p.welcome-text Wenn Sie diesen Newsletter zukünftig nicht mehr empfangen möchten, geben Sie uns bitte kurz per Mail Bescheid. Wir werden Sie dann umgehend aus unserem Verteiler entfernen.

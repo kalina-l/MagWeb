@@ -6,10 +6,25 @@ var articleSchema = Schema({
   author: String,
   category: String,
   headline: String,
-  shortText: String,
+  smallNewsText: String,
   newsText: String,
-  url: String,
-  visibility: Number,
+  position: Number,
+  type: Number  // 1 FullScreen - 2 FullSplit - 3 BigDouble - 4 MediumDouble - 5 SmallDouble - 6 Small
+});
+
+var newsSchema = Schema({
+  _id: String,
+  author: String,
+  category: String,
+  headline: String,
+  newsText: String,
+  smallNewsText: String,
+  link: String,
+  linkName: String,
+  link2: String,
+  linkName2: String,
+  image: String,
+  position: Number,
   type: Number  // 1 FullScreen - 2 FullSplit - 3 BigDouble - 4 MediumDouble - 5 SmallDouble - 6 Small
 });
 
@@ -27,6 +42,7 @@ var authorSchema = Schema({
 
 var imageSchema = Schema({
   _refArticle: { type: String, ref: 'Article'},
+  type: Number,
   position: Number,
   filename: String,
   format: Number // 1=square 2=landscape 3=portrait
@@ -42,14 +58,14 @@ var categorySchema = Schema({
   name: String
 });
 
-var Article  = mongoose.model('Article', articleSchema);
+var News  = mongoose.model('News', newsSchema);
 var Author = mongoose.model('Author', authorSchema);
 var Image  = mongoose.model('Image', imageSchema);
 var Link = mongoose.model('Link', linkSchema);
 var Category  = mongoose.model('Category', categorySchema);
 
 module.exports = {
-  Article: Article,
+  News: News,
   Author: Author,
   Image: Image,
   Link: Link,

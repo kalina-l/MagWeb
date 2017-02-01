@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/magazine');
+var schemas = require('./schemas');
 var express = require('express');
 var bodyParser = require('body-parser');
 var stylus = require('stylus');

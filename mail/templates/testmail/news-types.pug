@@ -1,0 +1,111 @@
+if (news.type == 1)
+    - gripCount = 0
+    table.full(align="left" border="0" cellpadding="0" cellspacing="0" width="600")
+        tr
+            td
+                a(href="https://hansenmanagement.de" +link alt="Zur Vita von " +name)
+                    h2.name
+                        = name
+                img(src="data:image/jpeg;base64,"+imageMedium, style="width: 100%;")
+                p.big-text
+                    != news.newsText
+                    - if (news.linkName && news.link)
+                        br
+                        a.news-link(href="" + news.link)
+                            != news.linkName
+                    - if (news.linkName2 && news.link2)
+                        a.news-link(href="" + news.link2)
+                            != news.linkName2
+
+if (news.type == 3)
+    - gripCount = gripCount+6
+    - if (gripCount == 6)
+        table.table-left(align="left" border="0" cellpadding="0" cellspacing="0" style="display: inline-block;" width="285")
+            tr
+                td
+                    a(href="https://hansenmanagement.de" +link alt="Zur Vita von " +name)
+                        h2.name
+                            = name
+                    img(src="data:image/jpeg;base64,"+imageMedium, style="width: 100%;")
+                    p.text
+                        != news.newsText
+                        - if (news.linkName && news.link)
+                            br
+                            a.news-link(href="" + news.link)
+                                != news.linkName
+                        - if (news.linkName2 && news.link2)
+                            a.news-link(href="" + news.link2)
+                                != news.linkName2
+
+
+    - if (gripCount == 12)
+        table.table-right(align="right" border="0" cellpadding="0" cellspacing="0" style="display: inline-block;" width="285")
+            tr
+                td
+                    a(href="https://hansenmanagement.de" +link alt="Zur Vita von " +name)
+                        h2.name
+                            = name
+                    img(src="data:image/jpeg;base64,"+imageMedium, style="width: 100%;")
+                    p.text
+                        != news.newsText
+                        - if (news.linkName && news.link)
+                            br
+                            a.news-link(href="" + news.link)
+                                != news.linkName
+                        - if (news.linkName2 && news.link2)
+                            a.news-link(href="" + news.link2)
+                                != news.linkName2
+
+if (news.type == 6)
+    - gripCount = gripCount+4
+    - if (gripCount == 4)
+        table.table-left-small(align="left" border="0" cellpadding="0" cellspacing="0" style="display: inline-block;" width="180")
+            tr
+                td
+                    a(href="https://hansenmanagement.de" +link alt="Zur Vita von " +name)
+                        h2.name-small
+                            = name
+                    img(src="data:image/jpeg;base64,"+imageMedium, style="width: 100%;")
+                    p.small-text
+                        != news.newsText
+                        - if (news.linkName && news.link)
+                            br
+                            a.news-link(href="" + news.link)
+                                != news.linkName
+                        - if (news.linkName2 && news.link2)
+                            a.news-link(href="" + news.link2)
+                                != news.linkName2
+    - if (gripCount == 8)
+        table#second-entry.table-left-small(align="left" border="0" cellpadding="0" cellspacing="0" style="display: inline-block;" width="180")
+            tr
+                td
+                    a(href="https://hansenmanagement.de" +link alt="Zur Vita von " +name)
+                        h2.name-small
+                            = name
+                    img(src="data:image/jpeg;base64,"+imageMedium, style="width: 100%;")
+                    p.small-text
+                        != news.newsText
+                        - if (news.linkName && news.link)
+                            br
+                            a.news-link(href="" + news.link)
+                                != news.linkName
+                        - if (news.linkName2 && news.link2)
+                            a.news-link(href="" + news.link2)
+                                != news.linkName2
+    - if (gripCount == 12)
+        table.table-right-small(align="right" border="0" cellpadding="0" cellspacing="0" style="display: inline-block;" width="180")
+            tr
+                td
+                    a(href="https://hansenmanagement.de" +link alt="Zur Vita von " +name)
+                        h2.name-small
+                            = name
+                    img(src="data:image/jpeg;base64,"+imageMedium, style="width: 100%;")
+                    p.small-text
+                        != news.newsText
+                        - if (news.linkName && news.link)
+                            br
+                            a.news-link(href="" + news.link)
+                                != news.linkName
+                        - if (news.linkName2 && news.link2)
+                            a.news-link(href="" + news.link2)
+                                != news.linkName2
