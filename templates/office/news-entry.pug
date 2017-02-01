@@ -1,0 +1,95 @@
+extend ../base
+
+block title
+    title Office – News Eintrag
+    link(rel="stylesheet", href="/styles/style-office.css")
+
+block content
+    div.col-lg-12.col-head-space
+        div.row
+            div.col-lg-11(style="border-top: 1px solid black; padding-top: 20px; margin-top:15px; margin-bottom:25px;")
+                h2(style="text-align:center; margin-bottom:15px;") News Eintrag
+
+                div.col-lg-4
+
+                    - if (imageDB && currentEntry != 'new')
+                        img.img-fluid(src= "/img/news/" +imageDB+'-large.jpg')
+                        br
+                    - else
+                        div.profile-image-square
+                            div.profile-image-square-content Newsbild
+
+                    if (currentEntry != 'new')
+                        form(action="/office/news/eintrag/saveImage", method="post", enctype="multipart/form-data" style="margin-bottom: 20px;")
+                            input(type="hidden", name="imageType" value="newsImage")
+                            input(type="hidden", name="currentImage", value=""+imageDB)
+                            input(type="hidden", name="currentNewsEntry", value="" +currentEntry)
+                            input(type="file", name="image" required)
+                            button(type="submit", value="upload") Upload
+
+                div.col-lg-7
+                    if (currentEntry == 'new')
+                        - var author = ''
+                        - var category = ''
+                        - var pos = 9999
+                        - var headline = ''
+                        - var newstext = ''
+                        - var smallnewstext = ''
+                        - var linkname = ''
+                        - var link = ''
+                        - var linkname2 = ''
+                        - var link2 = ''
+                        - var type = 1
+                    else
+                        - var author = authorDB
+                        - var category = categoryDB
+                        - var pos = currentPosition
+                        - var headline = headlineDB
+                        - var smallnewstext = smallNewsTextDB
+                        - var newstext = newsTextDB
+                        - var linkname = linkNameDB
+                        - var link = linkDB
+                        - var linkname2 = linkNameDB2
+                        - var link2 = linkDB2
+                        - var type = typeDB
+                    form(action="/office/news/eintrag/save" , id="editForm" , method="post" style="margin-bottom: 20px;")
+                        label Überschrift
+                        textarea.headline(form="editForm" cols="86" rows ="20" name="headline" style="width: 100%; height:50px; margin-bottom:15px;")
+                            = headline
+                        input(type="hidden", name="currentNewsEntry", value="" +currentEntry)
+                        input(type="hidden", name="newsPosition", value="" +pos)
+
+                        label Kleiner Newstext
+                        textarea.smallNewsText(form="editForm" cols="86" rows ="20" name="smallNewsText" style="width: 100%; height:150px; margin-bottom:15px;")
+                            = smallnewstext
+
+                        label Newstext
+                        textarea.newsText(form="editForm" cols="86" rows ="20" name="newsText" style="width: 100%; height:150px; margin-bottom:15px;")
+                            = newstext
+
+                        p (Roter Text Bsp.: -rot Das ist der rote Text rot-)
+                        label Kategorie
+                        input(type="text", name="category", value=""+category, style="width: 100%; margin-bottom:15px;")
+                        label Author
+                        input(type="text", name="author", value=""+author, style="width: 100%; margin-bottom:15px;")
+
+                        label Link Name
+                        input(type="text", name="linkName", value=""+linkname, style="width: 100%; margin-bottom:15px;")
+                        label Link
+                        input(type="text", name="link", value="" +link , style="width: 100%; margin-bottom:15px;")
+                        label Link Name 2
+                        input(type="text", name="linkName2", value=""+linkname2, style="width: 100%; margin-bottom:15px;")
+                        label Link 2
+                        input(type="text", name="link2", value="" +link2 , style="width: 100%; margin-bottom:15px;")
+
+                        label Anzeigegröße
+                        select.form-control(name="newsType" style="margin-bottom:15px;")
+                            - var typeText = ['Volle Breite (großes Bild)', 'Volle Breite (mittleres Bild)', 'Halbe Breite (mittleres Bild)', 'Halbe Breite (mittleres Bild)', 'Halbe Breite (kleines Bild)', 'Drittel Breite (kleines Bild)']
+                            - for (var i = 1; i <= 6; i++)
+                                - if (type == i)
+                                    option(value=""+i selected)
+                                        = typeText[i-1]
+                                - else
+                                    option(value=""+i)
+                                        = typeText[i-1]
+                        button(type="submit", value="Speichern") Speichern

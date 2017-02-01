@@ -1,0 +1,238 @@
+extend ../base
+
+block title
+    title Office – Magazine
+
+    script.
+        var news = [#{allArticles}];
+        var allImagesElement = '';
+        var allFormElements = '';
+
+        $(document).ready(function() {
+
+            createOrder();
+            $( "div" ).on( "click", "button.moveForward", function() {
+                var arrayPos = (this.id - 1);
+                var newPos = (arrayPos - 1);
+                var tempNews = news[arrayPos];
+                news.splice(arrayPos, 1);
+                news.splice(newPos, 0, tempNews);
+                createOrder();
+            });
+            $( "div" ).on( "click", "button.moveBack", function() {
+                var arrayPos = (this.id - 1);
+                var newPos = (this.id);
+                var tempNews = news[arrayPos];
+                news.splice(arrayPos, 1);
+                news.splice(newPos, 0, tempNews);
+                createOrder();
+            });
+        });
+
+        function createOrder() {
+            allImagesElement = '';
+            allFormElements = '';
+            var regex = '&lt;br /&gt;';
+            var rowCount = 0;
+            // double or triple
+            var newsBefore = 'double';
+
+            for (i = 0; i < news.length; i++) {
+                var position = i+1;
+                var currentCat = '';
+
+                var text = '' + news[i].newsText;
+                text = text.replace(/&lt;br \/&gt;/g, '<br />');
+
+                var head = '' + news[i].headline;
+                head = head.replace(/&lt;br \/&gt;/g, '<br />');
+
+                allFormElements += '<input type="hidden" name="' + news[i]._id + '" value="' + position + '">';
+
+                if (news[i].type == 1 || news[i].type == 2) {
+                    if (rowCount > 0) {
+                        allImagesElement += '</div>';
+                    }
+                    rowCount = 3;
+                } else if (news[i].type == 3 || news[i].type == 4 || news[i].type == 5) {
+                    if (rowCount == 0) {
+                        allImagesElement += '<div class="row">';
+                        rowCount++;
+                        newsBefore = 'double';
+                    } else if (rowCount == 1) {
+                        if (newsBefore == 'triple') {
+                            rowCount = 3;
+                            newsBefore = 'double';
+                        } else {
+                            rowCount++;
+                            newsBefore = 'double';
+                        }
+                    } else if (rowCount == 2 || rowCount == 3) {
+                        allImagesElement += '</div><div class="row">';
+                        rowCount = 1;
+                        newsBefore = 'double';
+                    }
+                } else if (news[i].type == 6) {
+                    if (rowCount == 0) {
+                        allImagesElement += '<div class="row">';
+                        rowCount++;
+                        newsBefore = 'triple';
+                    } else if (rowCount == 1) {
+                        if (rowCount == 1 && newsBefore == 'double') {
+                            rowCount = 3;
+                            newsBefore = 'triple';
+                        } else {
+                            rowCount++;
+                            newsBefore = 'triple';
+                        }
+                    } else if (rowCount == 2) {
+                        if (rowCount == 2 && newsBefore == 'double') {
+                            allImagesElement += '</div><div class="row">';
+                            rowCount = 1;
+                            newsBefore = 'triple';
+                        } else {
+                            rowCount++;
+                            newsBefore = 'triple';
+                        }
+                    } else if (rowCount == 3) {
+                        allImagesElement += '</div><div class="row">';
+                        rowCount = 1;
+                        newsBefore = 'triple';
+                    }
+                }
+
+                if (news[i].type == 1) {
+                    allImagesElement +=
+                        '<div class="row">' +
+                            '<div class="col-lg-12">' +
+                                '<h2 class="news-article-name">' + currentCat + '</h2>' +
+                                '<img class="img-fluid" src="/img/news/' + news[i].image + '-medium.jpg">' +
+                                '<button class="moveForward" id="' + position + '" type="button" title="Vor"> < </button>' +
+                                '<button class="moveBack" id="' + position + '" type="button" title="Zurück"> > </button>' +
+                                '<a href="/office/news/eintrag_' + news[i]._id + '">' +
+                                    '<button type="button" title="Edit"> Edit </button>' +
+                                '</a>' +
+                                '<form class="deleteImageForm" action="/office/news/newsDelete" method="post" style="float:right;">' +
+                                    '<input type="hidden" name="newsEntryToDelete" value="' + news[i]._id + '">' +
+                                    '<button type="submit" value="Delete"> X </button></form>' +
+                                '<h3 class="news-article-headline">' + head + '</h3>' +
+                                '<p class="news-article-text">' + text + '</p>' +
+                            '</div>' +
+                        '</div>';
+                } else if (news[i].type == 2) {
+                    allImagesElement +=
+                        '<div class="row">' +
+                            '<div class="col-lg-7">' +
+                                '<img class="img-fluid" src="/img/news/' + news[i].image + '-small.jpg">' +
+                                '<button class="moveForward" id="' + position + '" type="button" title="Vor"> < </button>' +
+                                '<button class="moveBack" id="' + position + '" type="button" title="Zurück"> > </button>' +
+                                '<a href="/office/news/eintrag_' + news[i]._id + '">' +
+                                    '<button type="button" title="Edit"> Edit </button>' +
+                                '</a>' +
+                                '<form class="deleteImageForm" action="/office/news/newsDelete" method="post" style="float:right;">' +
+                                    '<input type="hidden" name="newsEntryToDelete" value="' + news[i]._id + '">' +
+                                    '<button type="submit" value="Delete"> X </button></form>' +
+                            '</div>' +
+                            '<div class="col-lg-5">' +
+                                '<h2 class="news-article-name">' + currentCat + '</h2>' +
+                                '<h3 class="news-article-headline">' + head + '</h3>' +
+                                '<p class="news-article-text">' + text + '</p>' +
+                            '</div>'
+                        '</div>';
+                } else if (news[i].type == 3) {
+                    allImagesElement +=
+                        '<div class="col-lg-6">' +
+                            '<h2 class="news-article-name">' + currentCat + '</h2>' +
+                            '<img class="img-fluid" src="/img/news/' + news[i].image + '-small.jpg">' +
+                            '<button class="moveForward" id="' + position + '" type="button" title="Vor"> < </button>' +
+                            '<button class="moveBack" id="' + position + '" type="button" title="Zurück"> > </button>' +
+                            '<a href="/office/news/eintrag_' + news[i]._id + '">' +
+                                '<button type="button" title="Edit"> Edit </button>' +
+                            '</a>' +
+                            '<form class="deleteImageForm" action="/office/news/newsDelete" method="post" style="float:right;">' +
+                                '<input type="hidden" name="newsEntryToDelete" value="' + news[i]._id + '">' +
+                                '<button type="submit" value="Delete"> X </button></form>' +
+                            '<h3 class="news-article-headline">' + head + '</h3>' +
+                            '<p class="news-article-text">' + text + '</p>' +
+                        '</div>';
+                } else if (news[i].type == 4) {
+                    allImagesElement +=
+                        '<div class="col-lg-6">' +
+                            '<h2 class="news-article-name">' + currentCat + '</h2>' +
+                            '<img class="img-fluid" src="/img/news/' + news[i].image + '-small.jpg" style="max-width: 85%;">' +
+                            '<button class="moveForward" id="' + position + '" type="button" title="Vor"> < </button>' +
+                            '<button class="moveBack" id="' + position + '" type="button" title="Zurück"> > </button>' +
+                            '<a href="/office/news/eintrag_' + news[i]._id + '">' +
+                                '<button type="button" title="Edit"> Edit </button>' +
+                            '</a>' +
+                            '<form class="deleteImageForm" action="/office/news/newsDelete" method="post" style="float:right;">' +
+                                '<input type="hidden" name="newsEntryToDelete" value="' + news[i]._id + '">' +
+                                '<button type="submit" value="Delete"> X </button></form>' +
+                            '<h3 class="news-article-headline">' + head + '</h3>' +
+                            '<p class="news-article-text">' + text + '</p>' +
+                        '</div>';
+                } else if (news[i].type == 5) {
+                    allImagesElement +=
+                        '<div class="col-lg-6">' +
+                            '<div class="col-lg-12">' +
+                                '<h2 class="news-article-name">' + currentCat + '</h2>' +
+                            '</div>' +
+                            '<div class="col-lg-6">' +
+                                '<img class="img-fluid" src="/img/news/' + news[i].image + '-small.jpg">' +
+                                '<button class="moveForward" id="' + position + '" type="button" title="Vor"> < </button>' +
+                                '<button class="moveBack" id="' + position + '" type="button" title="Zurück"> > </button>' +
+                                '<a href="/office/news/eintrag_' + news[i]._id + '">' +
+                                    '<button type="button" title="Edit"> Edit </button>' +
+                                '</a>' +
+                                '<form class="deleteImageForm" action="/office/news/newsDelete" method="post" style="float:right;">' +
+                                    '<input type="hidden" name="newsEntryToDelete" value="' + news[i]._id + '">' +
+                                    '<button type="submit" value="Delete"> X </button>' +
+                                '</form>' +
+                            '</div>' +
+                            '<div class="col-lg-6">' +
+                                '<h3 class="news-article-headline">' + head + '</h3>' +
+                                '<p class="news-article-text">' + text + '</p>' +
+                            '</div>' +
+                        '</div>';
+                } else if (news[i].type == 6) {
+                    allImagesElement +=
+                        '<div class="col-lg-4">' +
+                            '<h2 class="news-article-name">' + currentCat + '</h2>' +
+                            '<img class="img-fluid" src="/img/news/' + news[i].image + '-small.jpg">' +
+                            '<button class="moveForward" id="' + position + '" type="button" title="Vor"> < </button>' +
+                            '<button class="moveBack" id="' + position + '" type="button" title="Zurück"> > </button>' +
+                            '<a href="/office/news/eintrag_' + news[i]._id + '">' +
+                                '<button type="button" title="Edit"> Edit </button>' +
+                            '</a>' +
+                            '<form class="deleteImageForm" action="/office/news/newsDelete" method="post" style="float:right;">' +
+                                '<input type="hidden" name="newsEntryToDelete" value="' + news[i]._id + '">' +
+                                '<button type="submit" value="Delete"> X </button></form>' +
+                            '<h3 class="news-article-headline">' + head + '</h3>' +
+                            '<p class="news-article-text">' + text + '</p>' +
+                        '</div>';
+                }
+
+                if (position == news.length) {
+                    allFormElements += '<button type="submit" value="Speichern"> Reihenfolge speichern </button>';
+                    $("#changeNewsPositionForm").empty();
+                    $("#changeNewsPositionForm").append(allFormElements);
+                    $("#newsContainer").empty();
+                    $("#newsContainer").html(allImagesElement);
+                }
+
+            }
+        }
+
+block content
+    div.col-lg-12.col-head-space
+        div.row
+            a(href="/office/news/eintrag_new") >>> Neuer News-Eintrag
+            br
+            div.col-lg-11(style="border-top: 1px solid black; padding-top: 20px; margin-top:15px;")
+                h2(style="text-align:center; margin-bottom:15px;") Artikel
+
+    form#changeNewsPositionForm(action="/office/news/changeSequence" method="post" style="display: inline;")
+
+    form#changeNewsPositionForm(action="/office/news/changeSequence" method="post" style="display: inline;")
+
+    div#newsContainer.col-lg-12
