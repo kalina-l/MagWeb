@@ -1,0 +1,53 @@
+extend ./base
+
+block title
+    title Artikel Seite
+
+    script.
+        $('.carousel').carousel()
+
+block content
+    div.col-lg-12.col-head-space
+        div.row
+            div.col-lg-11
+                div
+                    div#carousel-example-generic.carousel.slide(data-ride="carousel")
+                        div.carousel-inner(role="listbox")
+                            - var imageUrlBase = '/img/news/'
+                            img.img-fluid(src= "" + imageUrlBase + imageDB + '-medium.jpg', srcset=""+ imageUrlBase+imageDB + '-medium.jpg 900w, '+ imageUrlBase+imageDB + '-large.jpg 2000w')
+
+                        a.left.carousel-control(href="#carousel-example-generic" role="button" data-slide="prev")
+                            span.icon-prev(aria-hidden="true")
+                            span.sr-only Prev
+                        a.right.carousel-control(href="#carousel-example-generic" role="button" data-slide="next")
+                            span.icon-next(aria-hidden="true")
+                            span.sr-only Next
+
+        div.col-lg-12
+            h2(style="text-align:center;")
+                != headlineDB
+        div.col-lg-12#basic-data
+            p.basic-data-text.block-text
+                if (smallNewsTextDB)
+                    = smallNewsTextDB
+
+            if (newsTextDB)
+                p.basic-data-text.block-text
+                    span(style="text-transform: uppercase; font-weight: 600; line-height:1.2rem;") Zusammenfassung
+                    br
+                    != newsTextDB
+
+            if (smallNewsTextDB)
+                p.basic-data-text.block-text
+                    span(style="text-transform: uppercase; font-weight: 600; line-height:1.2rem;") Vollständiger Artikel
+                    br
+                    != smallNewsTextDB
+
+            if (linkNameDB && linkDB)
+                br
+                a.news-link(href="" + linkDB)
+                    != linkNameDB
+            if (linkNameDB2 && linkDB2)
+                br
+                a.news-link(href="" + linkDB2)
+                    != linkNameDB2

@@ -1,0 +1,13 @@
+- var img1 = firstEntryImages[i]
+- var img2 = firstEntryImages[i+1]
+- if (img1.format == 2)
+    img.img-fluid(src= "" + imageUrlBase + firstEntryImages[i].filename + '-small.jpg' srcset=""+ imageUrlBase+img1.filename + '-small.jpg 900w, '+ imageUrlBase+img1.filename + '-medium.jpg 2000w')
+- else if (img1.format == 3 && firstEntryImages.length > (i+1) && portraitDouble == false)
+    - if (img2.format == 3)
+        - portraitDouble = true
+        img.img-fluid(src= ""+ imageUrlBase+img1.filename + '-small.jpg' srcset=""+ imageUrlBase+img1.filename + '-small.jpg 900w, '+ imageUrlBase+img1.filename + '-medium.jpg 2000w', style="width: 50%; display:inline-block;")
+        img.img-fluid(src= ""+ imageUrlBase+img2.filename + '-small.jpg' srcset=""+ imageUrlBase+img2.filename + '-small.jpg 900w, '+ imageUrlBase+img2.filename + '-medium.jpg 2000w', style="width: 50%; display:inline-block;")
+    - else
+        img.img-fluid(src= ""+ imageUrlBase+img1.filename + '-small.jpg' srcset=""+ imageUrlBase+img1.filename + '-small.jpg 900w, '+ imageUrlBase+img1.filename + '-medium.jpg 2000w', style="width: 50%;")
+- else if (img1.format == 3 && portraitDouble == false)
+    img.img-fluid(src= ""+ imageUrlBase+img1.filename + '-small.jpg' srcset=""+ imageUrlBase+img1.filename + '-small.jpg 900w, '+ imageUrlBase+img1.filename + '-medium.jpg 2000w', style="width: 50%;")

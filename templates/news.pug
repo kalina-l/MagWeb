@@ -1,0 +1,61 @@
+extend ./base
+
+block title
+    title Magazine
+
+    script.
+        $('.carousel').carousel()
+
+block content
+    div.col-lg-12.col-head-space
+        div.row
+            div.news-article
+                h2.page-headline
+                    = 'News'
+                div#carousel-example-generic.carousel.slide(data-ride="carousel")
+                    div.carousel-inner(role="listbox")
+                        - var imageUrlBase = '/img/news/'
+                        - var portraitDouble = false
+                        - var imageBefore = 'landscape'
+                        - for (var i = 0; i < firstEntryImages.length; i++)
+                            - if (i == 0)
+                                - if (portraitDouble == false)
+                                    div.carousel-item.active
+                                        include ./includes/images-first-news-entry
+                                - else
+                                    - portraitDouble = false
+
+                            - else
+                                - if (portraitDouble == false)
+                                    div.carousel-item
+                                        include ./includes/images-first-news-entry
+                                - else
+                                    - portraitDouble = false
+
+                    a.left.carousel-control(href="#carousel-example-generic" role="button" data-slide="prev")
+                        span.icon-prev(aria-hidden="true")
+                        span.sr-only Prev
+                    a.right.carousel-control(href="#carousel-example-generic" role="button" data-slide="next")
+                        span.icon-next(aria-hidden="true")
+                        span.sr-only Next
+
+                h3.news-article-headline.centered-text
+                    != headlineDB
+                p.news-article-text.big-news-article-text.centered-text
+                    != newsTextDB
+
+            - var gripCount = 0
+            each news in allNews
+                - var names = 'Kategorie'
+
+                - var imageLarge = '/img/news/' + news.image + '-large.jpg'
+                - var imageMedium = '/img/news/' + news.image + '-medium.jpg'
+                - var imageSmall = '/img/news/' + news.image + '-small.jpg'
+
+                - if (gripCount == 0 || gripCount > 8 || news.type == 1 || news.type == 2)
+                    if (gripCount > 8)
+                        - gripCount = 0
+                    div.row
+                    include ./includes/news-types
+                - else
+                    include ./includes/news-types

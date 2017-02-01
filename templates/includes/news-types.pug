@@ -1,0 +1,120 @@
+if (news.type == 1)
+    - gripCount = 0
+    div.col-lg-12.news-article
+        a(href="" +link alt="Zur Vita von" +name)
+            h2.news-article-name
+                != names
+        img.img-fluid(src="" +imageMedium, srcset="" + imageMedium + ' 900w, ' + imageLarge + ' 2000w')
+        h3.news-article-headline.centered-text
+            != news.headline
+        p.news-article-text.big-news-article-text.centered-text
+            != news.newsText
+            br
+            a.news-link(href="/article/" + news._id) Zum Artikel
+            if (news.linkName && news.link)
+                br
+                a.news-link(href="" + news.link)
+                    != news.linkName
+            if (news.linkName2 && news.link2)
+                a.news-link(href="" + news.link2)
+                    != news.linkName2
+if (news.type == 2)
+    - gripCount = 0
+    div.col-lg-12.news-article
+        a(href="" +link alt="Zur Vita von" +name)
+            h2.news-article-name
+                != names
+    div.col-lg-7
+        img.img-fluid(src="" +imageMedium, srcset="" + imageMedium + ' 900w, ' + imageLarge + ' 1500w')
+    div.col-lg-5
+        h3.news-article-headline
+            != news.headline
+        p.news-article-text
+            != news.newsText
+            a.news-link(href="/article/" + news._id) Zum Artikel
+            if (news.linkName && news.link)
+                br
+                a.news-link(href="" + news.link)
+                    != news.linkName
+            if (news.linkName2 && news.link2)
+                a.news-link(href="" + news.link2)
+                    != news.linkName2
+if (news.type == 3)
+    - gripCount = gripCount+6
+    div.col-lg-6.news-article
+        a(href="" +link alt="Zur Vita von" +name)
+            h2.news-article-name
+                != names
+        img.img-fluid(src="" +imageSmall)
+        h3.news-article-headline
+            != news.headline
+        p.news-article-text
+            != news.newsText
+            a.news-link(href="/article/" + news._id) Zum Artikel
+            if (news.linkName && news.link)
+                br
+                a.news-link(href="" + news.link)
+                    != news.linkName
+            if (news.linkName2 && news.link2)
+                a.news-link(href="" + news.link2)
+                    != news.linkName2
+if (news.type == 4)
+    - gripCount = gripCount+6
+    div.col-lg-6.news-article
+        a(href="" +link alt="Zur Vita von" +name)
+            h2.news-article-name
+                != names
+        img.img-fluid(src="" +imageSmall, style="max-width: 85%;")
+        h3.news-article-headline
+            != news.headline
+        p.news-article-text
+            != news.newsText
+            a.news-link(href="/article/" + news._id) Zum Artikel
+            if (news.linkName && news.link)
+                br
+                a.news-link(href="" + news.link)
+                    != news.linkName
+            if (news.linkName2 && news.link2)
+                a.news-link(href="" + news.link2)
+                    != news.linkName2
+if (news.type == 5)
+    - gripCount = gripCount+6
+    div.col-lg-6.news-article
+        div.col-lg-12
+            a(href="" +link alt="Zur Vita von" +name)
+                h2.news-article-name
+                    != names
+        div.col-lg-6
+            img.img-fluid(src="" +imageSmall)
+        div.col-lg-6
+            h3.news-article-headline
+                != news.headline
+            p.news-article-text
+                != news.newsText
+                a.news-link(href="/article/" + news._id) Zum Artikel
+                if (news.linkName && news.link)
+                    br
+                    a.news-link(href="" + news.link)
+                        != news.linkName
+                if (news.linkName2 && news.link2)
+                    a.news-link(href="" + news.link2)
+                        != news.linkName2
+if (news.type == 6)
+    - gripCount = gripCount+4
+    div.col-lg-4.news-article
+        a(href="" +link alt="Zur Vita von" +name)
+            h2.news-article-name
+                != names
+        img.img-fluid(src="" +imageSmall)
+        h3.news-article-headline
+            != news.headline
+        p.news-article-text
+            != news.newsText
+            a.news-link(href="/article/" + news._id) Zum Artikel
+            if (news.linkName && news.link)
+                br
+                a.news-link(href="" + news.link)
+                    != news.linkName
+            if (news.linkName2 && news.link2)
+                a.news-link(href="" + news.link2)
+                    != news.linkName2
